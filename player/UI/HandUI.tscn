@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr8tw7o5s8gns"]
+
+[ext_resource type="Script" uid="uid://b73f4bl7okylg" path="res://player/UI/PlayerUI.gd" id="1_3px2f"]
+[ext_resource type="PackedScene" uid="uid://22fy8x7g40v6" path="res://cards/CardUI/CardUI.tscn" id="2_8jhxp"]
+
+[sub_resource type="Curve2D" id="Curve2D_7w8hh"]
+_data = {
+"points": PackedVector2Array(-450.168, 171.86, 0, 0, -300, -36, 0, 0, 0, 0, 300, -36)
+}
+point_count = 2
+
+[node name="PlayerUi" type="Node2D" node_paths=PackedStringArray("path_element", "card_uis")]
+script = ExtResource("1_3px2f")
+path_element = [NodePath("Path2D/PathFollow"), NodePath("Path2D/PathFollow2"), NodePath("Path2D/PathFollow3"), NodePath("Path2D/PathFollow4"), NodePath("Path2D/PathFollow5")]
+card_uis = [NodePath("Path2D/PathFollow/CardUi"), NodePath("Path2D/PathFollow2/CardUi2"), NodePath("Path2D/PathFollow3/CardUi3"), NodePath("Path2D/PathFollow4/CardUi4"), NodePath("Path2D/PathFollow5/CardUi5")]
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7w8hh")
+
+[node name="PathFollow" type="PathFollow2D" parent="Path2D"]
+position = Vector2(300, -36)
+progress = 625.336
+loop = false
+
+[node name="CardUi" parent="Path2D/PathFollow" instance=ExtResource("2_8jhxp")]
+unique_name_in_owner = true
+
+[node name="PathFollow2" type="PathFollow2D" parent="Path2D"]
+position = Vector2(208.003, -36)
+progress = 508.0
+
+[node name="CardUi2" parent="Path2D/PathFollow2" node_paths=PackedStringArray("title", "cost", "desc", "image") instance=ExtResource("2_8jhxp")]
+unique_name_in_owner = true
+title = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/CardName")
+cost = NodePath("../../PathFollow/CardUi/ManaUI/ManaCost")
+desc = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/MarginContainer/RichTextLabel")
+image = NodePath("../../PathFollow/CardUi/Image")
+
+[node name="PathFollow3" type="PathFollow2D" parent="Path2D"]
+position = Vector2(300, -36)
+progress = 625.336
+
+[node name="CardUi3" parent="Path2D/PathFollow3" node_paths=PackedStringArray("title", "cost", "desc", "image") instance=ExtResource("2_8jhxp")]
+unique_name_in_owner = true
+title = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/CardName")
+cost = NodePath("../../PathFollow/CardUi/ManaUI/ManaCost")
+desc = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/MarginContainer/RichTextLabel")
+image = NodePath("../../PathFollow/CardUi/Image")
+
+[node name="PathFollow4" type="PathFollow2D" parent="Path2D"]
+position = Vector2(300, -36)
+progress = 625.336
+
+[node name="CardUi4" parent="Path2D/PathFollow4" node_paths=PackedStringArray("title", "cost", "desc", "image") instance=ExtResource("2_8jhxp")]
+unique_name_in_owner = true
+title = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/CardName")
+cost = NodePath("../../PathFollow/CardUi/ManaUI/ManaCost")
+desc = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/MarginContainer/RichTextLabel")
+image = NodePath("../../PathFollow/CardUi/Image")
+
+[node name="PathFollow5" type="PathFollow2D" parent="Path2D"]
+position = Vector2(300, -36)
+progress = 625.336
+
+[node name="CardUi5" parent="Path2D/PathFollow5" node_paths=PackedStringArray("title", "cost", "desc", "image") instance=ExtResource("2_8jhxp")]
+unique_name_in_owner = true
+title = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/CardName")
+cost = NodePath("../../PathFollow/CardUi/ManaUI/ManaCost")
+desc = NodePath("../../PathFollow/CardUi/TextArea/VBoxContainer/MarginContainer/RichTextLabel")
+image = NodePath("../../PathFollow/CardUi/Image")

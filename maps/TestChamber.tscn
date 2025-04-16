@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmo0qe4pmjp7d"]
+
+[ext_resource type="PackedScene" uid="uid://dyuiuaucsa4q7" path="res://camera/MyCamera.tscn" id="1_xkosq"]
+[ext_resource type="PackedScene" uid="uid://hu8h8vgu33c8" path="res://player/Player.tscn" id="2_8qujy"]
+[ext_resource type="PackedScene" uid="uid://ects3kvbidi5" path="res://campfire/Campfire.tscn" id="3_d5wmo"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ujpkk"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fwdq1"]
+size = Vector2(20, 20)
+
+[node name="TestChamber" type="Node3D"]
+
+[node name="MyCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_xkosq")]
+transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0.333832, 3.23274, 5.78201)
+fov = 80.0
+target = NodePath("../Player")
+offset = Vector3(0, 10, 2)
+cam_speed = 0.5
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_ujpkk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_fwdq1")
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_8qujy")]
+camera = NodePath("../MyCamera")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.223159, -0.902719, 0.367829, 0.212838, 0.413363, 0.885342, -0.951262, -0.119284, 0.284379, 0, 11.9122, 15.5642)
+
+[node name="Campfire" parent="." instance=ExtResource("3_d5wmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.105922, 6.96826)
