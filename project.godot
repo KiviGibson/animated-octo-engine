@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GLOBAL="*res://global/Global.gd"
-CARD_STORAGE="*res://cards/-card storage/CardStorage.gd"
+CARD_STORAGE="*res://cards/card storage/CardStorage.gd"
 INPUT_DATA="*res://global/Inputs.gd"
 
 [input]

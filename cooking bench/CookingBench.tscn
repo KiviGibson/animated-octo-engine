@@ -1,17 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://b702uyx2vybcv"]
+[gd_scene load_steps=9 format=3 uid="uid://b702uyx2vybcv"]
 
-[ext_resource type="PackedScene" uid="uid://c2sg6nohjhebk" path="res://cooking bench/deck_component.tscn" id="1_5mq7f"]
-[ext_resource type="Texture2D" uid="uid://b4pyolur1cggp" path="res://cards/blank card/CARD.png" id="1_81774"]
+[ext_resource type="Texture2D" uid="uid://cofna5key4435" path="res://UITextures/Panel/panel-001.png" id="1_vjxkd"]
+[ext_resource type="Texture2D" uid="uid://c1tpk2tjc1f21" path="res://UITextures/Panel/panel-000.png" id="2_4wvuh"]
+[ext_resource type="Texture2D" uid="uid://5ichit2t5o8o" path="res://UITextures/Icons/award.png" id="3_1l7na"]
 
-[sub_resource type="Gradient" id="Gradient_1reu5"]
-colors = PackedColorArray(0, 0, 0, 0.501961, 0.0254564, 0.0717086, 0.0820708, 0.501961)
+[sub_resource type="Theme" id="Theme_vjxkd"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_prmck"]
-gradient = SubResource("Gradient_1reu5")
-fill_to = Vector2(0.52, 0.585)
+[sub_resource type="LabelSettings" id="LabelSettings_scwvs"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qwo0s"]
-texture = SubResource("GradientTexture2D_prmck")
+[sub_resource type="LabelSettings" id="LabelSettings_1l7na"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cfquf"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_b5mgu"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
 
 [node name="CookingBench" type="Control"]
 layout_mode = 3
@@ -33,196 +42,464 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+self_modulate = Color(0.12549, 0.12549, 0.12549, 0.501961)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_qwo0s")
+texture = ExtResource("1_vjxkd")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 21
+patch_margin_top = 21
+patch_margin_right = 21
+patch_margin_bottom = 21
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 tab_alignment = 1
-all_tabs_in_front = true
+current_tab = 0
+tabs_position = 1
 
-[node name="Cards" type="TabBar" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TabContainer"]
+[node name="Character" type="TabBar" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
+theme = SubResource("Theme_vjxkd")
+metadata/_tab_index = 0
 
-[node name="Equipment" type="TabBar" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TabContainer"]
+[node name="Deck" type="TabBar" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="Character" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DeckSide" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_vertical = 4
 
-[node name="DataElement" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeckSide"]
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.75
+alignment = 1
+
+[node name="Resources" type="NinePatchRect" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_4wvuh")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Resources"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Resources/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Resources/MarginContainer/HBoxContainer"]
+self_modulate = Color(0.12549, 0.12549, 0.12549, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("3_1l7na")
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Resources/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "1000"
+label_settings = SubResource("LabelSettings_scwvs")
+vertical_alignment = 1
+
+[node name="Vitality" type="NinePatchRect" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 6
+texture = ExtResource("2_4wvuh")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "<"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Vitality"
+label_settings = SubResource("LabelSettings_cfquf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_b5mgu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Vitality/HBoxContainer/MarginContainer2/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ">"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Strength" type="NinePatchRect" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 6
+texture = ExtResource("2_4wvuh")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "<"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Vitality"
+label_settings = SubResource("LabelSettings_cfquf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_b5mgu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Strength/HBoxContainer/MarginContainer2/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ">"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inteligence" type="NinePatchRect" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 6
+texture = ExtResource("2_4wvuh")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "<"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Vitality"
+label_settings = SubResource("LabelSettings_cfquf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_b5mgu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Inteligence/HBoxContainer/MarginContainer2/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ">"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dexterity" type="NinePatchRect" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 6
+texture = ExtResource("2_4wvuh")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "<"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Vitality"
+label_settings = SubResource("LabelSettings_cfquf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_b5mgu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character/VBoxContainer/Stats/Dexterity/HBoxContainer/MarginContainer2/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ">"
+label_settings = SubResource("LabelSettings_1l7na")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/Character"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
 
-[node name="CurrentDeck" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeckSide"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeckSide/CurrentDeck"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeckSide/CurrentDeck/MarginContainer"]
-layout_mode = 2
-
-[node name="DeckComponent" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeckSide/CurrentDeck/MarginContainer/VBoxContainer" instance=ExtResource("1_5mq7f")]
-layout_mode = 2
-type = 4
-text = "Your mother Bastard"
-cost_num = 2
-
-[node name="CookingSide" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ToolElements" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide"]
-layout_mode = 2
-
-[node name="Search" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/ToolElements"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Search"
-
-[node name="CardsSection" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="CardContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 12
-columns = 3
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0/10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect5" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect6" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect7" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect8" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect9" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect10" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect11" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="TextureRect12" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/CookingSide/CardsSection/ScrollContainer/MarginContainer/CardContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-texture = ExtResource("1_81774")
-expand_mode = 4
-stretch_mode = 5

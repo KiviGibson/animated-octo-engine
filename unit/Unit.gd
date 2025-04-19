@@ -23,5 +23,5 @@ func get_effect(id: String) -> Effect:
 			return effect
 	return null
 	
-func throw(position: Vector3 = self.global_position, rotation: Vector3 = self.rotation, projectile: Node3D = null):
+func atack(_projectile: Node3D = null):
 	pass

@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("atack"):
-		atack()
+		throw()
 	if Input.is_action_just_pressed("ability"):
 		use(self.global_position)
 	if Input.is_action_just_pressed("next"):
@@ -67,13 +67,14 @@ func draw(num: int) -> void:
 		if len(draw_pile) == 0:
 			shufle_cards()
 		var card: Card = draw_pile.pop_back()
-		ui.set_card(card, count + n)
+		ui.add_card(card)
 		hand.append(card)
 	count+=5
-	update_selection()
+	
 
 func discard() -> void:
 	var card: Card = hand.pop_at(card_index)
+	card.discarded.emit(self)
 	ui.remove_card(card)
 	discard_pile.append(card)
 	count-=1
@@ -81,18 +82,14 @@ func discard() -> void:
 		draw(5)
 	else:
 		card_index = min(card_index, len(hand)-1)
-		update_selection()
+	
 
-func atack() -> void:
-	var throwed: bool = hand[card_index].throw(self.global_position, self.global_rotation)
-	if !throwed:
-		print("Cant throw right now!")
-		return
+func throw() -> void:
+	atack(null)
 	discard()
 
 func use(my_pos: Vector3) -> void:
-	var used: bool = hand[card_index].use(my_pos)
-	if !used:
+	if !hand[card_index].use(my_pos, self):
 		print("Cant use right now!")
 		return
 	discard()
@@ -104,25 +101,10 @@ func shufle_cards() -> void:
 
 func next() -> void:
 	card_index = (card_index + 1) % len(hand)
-	update_selection()
+	ui.swap_card(1)
 
 func prev() -> void:
 	card_index -= 1
 	if card_index < 0:
 		card_index = len(hand)-1
-	update_selection()
-
-func update_selection():
-	var prev_arr := hand.slice(0, card_index)
-	var next_arr := hand.slice(card_index + 1, len(hand))
-	hand[card_index].ui_component.z_index = 10
-	hand[card_index].ui_component.scale = Vector2(1.25, 1.25)
-	var num = -1
-	for card in next_arr:
-		card.ui_component.z_index = num
-		card.ui_component.scale = Vector2(.9, .9)
-		num -= 1
-	for card:Card in prev_arr:
-		card.ui_component.z_index = num
-		card.ui_component.scale = Vector2(.9, .9)
-		num += 1
+	ui.swap_card(-1)

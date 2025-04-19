@@ -2,10 +2,10 @@ class_name Harm
 extends Node
 
 var amount: int
-var player: Player
 
-func _self_damage() -> void:
-	if player.health is SuchoKlates:
-		player.health.card_interaction(-amount)
+func _self_damage(caster: Unit) -> void:
+	print("Card was discarded!")
+	if caster.health is SuchoKlates:
+		caster.health.card_interaction(-amount)
 	else:
-		player.health.change_health(-amount)
+		caster.health.change_health(-amount)

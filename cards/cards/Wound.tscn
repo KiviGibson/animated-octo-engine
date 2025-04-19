@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://25qpam166f0r"]
+
+[ext_resource type="Script" uid="uid://coqbkbqvoadym" path="res://cards/cards/Card.gd" id="1_hd65n"]
+[ext_resource type="Texture2D" uid="uid://bbe5lnxhknevs" path="res://UITextures/Icons/suit_hearts_broken.png" id="2_23fp6"]
+[ext_resource type="Script" uid="uid://4faxl1ueswp3" path="res://cards/-card component/Harm.gd" id="3_ql8n5"]
+
+[node name="Wound" type="Node"]
+script = ExtResource("1_hd65n")
+card_name = "Wound"
+card_type = 2
+desc = "Deal damage on throw"
+damage = 1
+texture = ExtResource("2_23fp6")
+
+[node name="Harm" type="Node" parent="."]
+script = ExtResource("3_ql8n5")
+
+[connection signal="discarded" from="." to="Harm" method="_self_damage"]

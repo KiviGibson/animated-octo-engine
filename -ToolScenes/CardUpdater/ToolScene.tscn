@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1efh2sjqy3d3"]
 
 [ext_resource type="Script" uid="uid://bew5ov0ljxjwp" path="res://-ToolScenes/CardUpdater/CardAppender.gd" id="1_4kj6h"]
-[ext_resource type="PackedScene" uid="uid://dmnhevj8x2shc" path="res://cards/blank card/BlankCard.tscn" id="2_00xli"]
+[ext_resource type="PackedScene" uid="uid://dmnhevj8x2shc" path="res://cards/cards/BlankCard.tscn" id="2_00xli"]
 
 [node name="ToolScene" type="Node"]
 script = ExtResource("1_4kj6h")
