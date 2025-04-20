@@ -22,8 +22,7 @@ var last_direction : Vector2
 func _ready() -> void:
 	GLOBAL.player = self
 	prep_deck()
-
-func _physics_process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("atack"):
 		throw()
 	if Input.is_action_just_pressed("ability"):
@@ -34,6 +33,8 @@ func _physics_process(_delta: float) -> void:
 		prev()
 	if Input.is_action_just_pressed("interact"):
 		interaction.emit()
+
+func _physics_process(_delta: float) -> void:
 	if INPUT_DATA.player_direction:
 		var dir := INPUT_DATA.player_direction
 		last_direction = Vector2(dir.x,dir.z)
@@ -70,7 +71,6 @@ func draw(num: int) -> void:
 		ui.add_card(card)
 		hand.append(card)
 	count+=5
-	
 
 func discard() -> void:
 	var card: Card = hand.pop_at(card_index)
@@ -82,7 +82,6 @@ func discard() -> void:
 		draw(5)
 	else:
 		card_index = min(card_index, len(hand)-1)
-	
 
 func throw() -> void:
 	atack()

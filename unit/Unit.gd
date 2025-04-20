@@ -7,6 +7,12 @@ extends CharacterBody3D
 @export var attack_perfab: PackedScene
 var clones: Array[Unit]
 
+@export_category("Stats")
+@export var vit: int = 10
+@export var str: int = 10
+@export var dex: int = 10
+@export var fai: int = 10
+
 func add_effect(effect: Effect):
 	var current_state: Effect = get_effect(effect.id)
 	if current_state:
