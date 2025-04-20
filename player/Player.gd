@@ -85,7 +85,7 @@ func discard() -> void:
 	
 
 func throw() -> void:
-	atack(null)
+	atack()
 	discard()
 
 func use(my_pos: Vector3) -> void:

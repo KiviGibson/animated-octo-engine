@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://hu8h8vgu33c8"]
+[gd_scene load_steps=9 format=3 uid="uid://hu8h8vgu33c8"]
 
 [ext_resource type="Script" uid="uid://dci22w53v0q7s" path="res://player/Player.gd" id="1_jqugk"]
 [ext_resource type="PackedScene" uid="uid://dmnhevj8x2shc" path="res://cards/cards/BlankCard.tscn" id="2_spmx8"]
+[ext_resource type="PackedScene" uid="uid://coehherbyjgpn" path="res://projectiles/Projectile.tscn" id="4_gskgj"]
 [ext_resource type="PackedScene" uid="uid://25qpam166f0r" path="res://cards/cards/Wound.tscn" id="5_mhpjh"]
 [ext_resource type="Script" uid="uid://dvyytffq2bevy" path="res://unit/Health.gd" id="6_dpskx"]
 [ext_resource type="PackedScene" uid="uid://cr8tw7o5s8gns" path="res://player/UI/HandUI.tscn" id="8_pvg5q"]
@@ -16,6 +17,7 @@ container = NodePath("CardContainer")
 ui = NodePath("PlayerUI/Hand/HandUI")
 effect_node = NodePath("Effects")
 health = NodePath("Health")
+attack_perfab = ExtResource("4_gskgj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_pioxw")
