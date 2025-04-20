@@ -19,16 +19,16 @@ func change_health(value:int) -> void:
 			player.draw_pile.append(created)
 			player.add_child(created)
 			
-func is_wound(card: Card) -> bool:
-	return card.card_name == "Wound"
+func is_wound(c: Card) -> bool:
+	return c.card_name == "Wound"
 			
 func wounds_of_glory() -> void:
 	var player: Node3D = get_parent()
 	if player is Player:
 		var cards: Array[Card] = player.draw_pile.filter(is_wound)
 		player.draw_pile = player.draw_pile.filter(!is_wound)
-		for card in cards:
-			card.queue_free()
+		for c in cards:
+			c.queue_free()
 
 func card_interaction(value:int) -> void:
 	super.change_health(value)

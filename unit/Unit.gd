@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var effect_node: Node3D
 @export var speed: int = 5
 @export var health: Health
+@export var attack_perfab: PackedScene
 var clones: Array[Unit]
 
 func add_effect(effect: Effect):

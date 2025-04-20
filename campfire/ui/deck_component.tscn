@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c2sg6nohjhebk"]
 
-[ext_resource type="Script" uid="uid://ql75yufhqrgs" path="res://cooking bench/DeckComponent.gd" id="1_5jgxn"]
+[ext_resource type="Script" uid="uid://ql75yufhqrgs" path="res://campfire/ui/DeckComponent.gd" id="1_5jgxn"]
 
 [sub_resource type="Gradient" id="Gradient_uegla"]
 colors = PackedColorArray(0.0903021, 0.0638704, 0.0287173, 1, 0.526652, 0, 0.00868327, 1)
