@@ -3,14 +3,6 @@ extends Node
 var player_direction: Vector3
 var mouse_pos: Vector3
 var camera: Camera3D
-var focus_unit: Unit
-
-func set_focus(rayArray: Dictionary) -> void:
-	var suspect: Node3D = rayArray["collider"] 
-	if suspect is Unit:
-		focus_unit = suspect
-	else:
-		focus_unit = null
 
 func get_mouse_world_position() -> Vector3:
 	if !camera: return Vector3.ZERO
@@ -20,7 +12,6 @@ func get_mouse_world_position() -> Vector3:
 	var end = origin + camera.project_ray_normal(mouse) * 1000
 	var rayArray := word_space.intersect_ray(PhysicsRayQueryParameters3D.create(origin, end))
 	if rayArray.has("position"):
-		set_focus(rayArray)
 		return rayArray["position"]
 	return Vector3.ZERO
 
