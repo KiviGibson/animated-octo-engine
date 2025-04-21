@@ -27,6 +27,7 @@ shape = SubResource("WorldBoundaryShape3D_ujpkk")
 mesh = SubResource("PlaneMesh_fwdq1")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_8qujy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 camera = NodePath("../MyCamera")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

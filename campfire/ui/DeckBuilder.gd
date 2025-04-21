@@ -33,7 +33,7 @@ func save() -> void:
 	var res: Array[CardData]
 	for child in deck_side.get_children():
 		if child is DeckComponent and child.count > 0:
-			var element: CardData
+			var element: CardData = CardData.new()
 			element.card = child.scene
 			element.count = child.count
 			res.append(element)

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 GLOBAL="*res://global/Global.gd"
 INPUT_DATA="*res://global/Inputs.gd"
+SAVE_SYSTEM="*res://save/SaveSystem.gd"
 
 [input]
 
