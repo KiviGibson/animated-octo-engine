@@ -2,6 +2,7 @@ class_name Card
 
 extends Node
 
+@warning_ignore("unused_signal")
 signal discarded(caster: Unit)
 
 enum type{mysterious, eldrich, monsterous, ezotheric}

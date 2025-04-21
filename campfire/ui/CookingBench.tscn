@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b702uyx2vybcv"]
+[gd_scene load_steps=13 format=3 uid="uid://b702uyx2vybcv"]
 
 [ext_resource type="Texture2D" uid="uid://cofna5key4435" path="res://UITextures/Panel/panel-001.png" id="1_gwwd4"]
+[ext_resource type="Script" uid="uid://cgrvgoywd7v08" path="res://campfire/ui/DeckBuilder.gd" id="1_ia6ad"]
+[ext_resource type="PackedScene" uid="uid://be3nmmohk3t3q" path="res://campfire/ui/card_ui_wrapper.tscn" id="2_4hql2"]
 [ext_resource type="Texture2D" uid="uid://c1tpk2tjc1f21" path="res://UITextures/Panel/panel-000.png" id="2_h45ah"]
 [ext_resource type="Texture2D" uid="uid://5ichit2t5o8o" path="res://UITextures/Icons/award.png" id="3_ia6ad"]
+[ext_resource type="PackedScene" uid="uid://c2sg6nohjhebk" path="res://campfire/ui/deck_component.tscn" id="4_h45ah"]
 
 [sub_resource type="Theme" id="Theme_vjxkd"]
 
@@ -22,13 +25,29 @@ font_color = Color(0, 0, 0, 1)
 font_size = 32
 font_color = Color(0, 0, 0, 1)
 
-[node name="CookingBench" type="Control"]
+[sub_resource type="GDScript" id="GDScript_4hql2"]
+resource_name = "Resizer"
+script/source = "extends GridContainer
+func _ready() -> void:
+	get_tree().get_root().size_changed.connect(resize)
+	
+func resize() -> void:
+	self.columns = int(self.get_global_rect().size.x/200.0)
+"
+
+[node name="CookingBench" type="Control" node_paths=PackedStringArray("deck_side", "card_side", "deck_counter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ia6ad")
+card_ui_wrapper = ExtResource("2_4hql2")
+deck_component_ui = ExtResource("4_h45ah")
+deck_side = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/MarginContainer/Deck")
+card_side = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Cards/CardsToUse")
+deck_counter = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/CardCounter")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -488,18 +507,47 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.4
 
-[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CardCounter" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "0/10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Deck" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Cards" type="ScrollContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="CardsToUse" type="GridContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Cards"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+script = SubResource("GDScript_4hql2")

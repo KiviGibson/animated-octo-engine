@@ -1,70 +1,86 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2sg6nohjhebk"]
+[gd_scene load_steps=5 format=3 uid="uid://c2sg6nohjhebk"]
 
-[ext_resource type="Script" uid="uid://ql75yufhqrgs" path="res://campfire/ui/DeckComponent.gd" id="1_5jgxn"]
+[ext_resource type="Texture2D" uid="uid://c1tpk2tjc1f21" path="res://UITextures/Panel/panel-000.png" id="1_7pkmn"]
+[ext_resource type="Script" uid="uid://ql75yufhqrgs" path="res://campfire/ui/DeckComponent.gd" id="1_hnqt0"]
+[ext_resource type="Texture2D" uid="uid://d0gk8ivk5atb0" path="res://UITextures/Border/panel-border-000.png" id="2_hnqt0"]
 
-[sub_resource type="Gradient" id="Gradient_uegla"]
-colors = PackedColorArray(0.0903021, 0.0638704, 0.0287173, 1, 0.526652, 0, 0.00868327, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_agaot"]
+font_size = 20
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4ruti"]
-gradient = SubResource("Gradient_uegla")
-fill_from = Vector2(0.314655, 0.767241)
-fill_to = Vector2(0.831897, 0.357759)
+[node name="Control" type="Control" node_paths=PackedStringArray("card_name", "card_count", "arr")]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 70.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_hnqt0")
+card_name = NodePath("NinePatchRect/MarginContainer/HBoxContainer/Name")
+card_count = NodePath("NinePatchRect/MarginContainer/HBoxContainer/Count")
+arr = [NodePath("NinePatchRect/NinePatchRect"), NodePath("NinePatchRect/MarginContainer/HBoxContainer/Name"), NodePath("NinePatchRect/MarginContainer/HBoxContainer/Count")]
+in_deck = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cld7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ojjmb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1tj6c"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7vw4e"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pucqi"]
-
-[node name="DeckComponent" type="TextureRect" node_paths=PackedStringArray("cost", "card_name")]
-texture = SubResource("GradientTexture2D_4ruti")
-stretch_mode = 6
-script = ExtResource("1_5jgxn")
-cost = NodePath("Button/MarginContainer/HBoxContainer/Cost")
-card_name = NodePath("Button/MarginContainer/HBoxContainer/Name")
-
-[node name="Button" type="Button" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0.12549, 0.12549, 0.12549, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_1cld7")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ojjmb")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_1tj6c")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_7vw4e")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_pucqi")
+texture = ExtResource("1_7pkmn")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
 
-[node name="MarginContainer" type="MarginContainer" parent="Button"]
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 10
+texture = ExtResource("2_hnqt0")
+patch_margin_left = 22
+patch_margin_top = 22
+patch_margin_right = 22
+patch_margin_bottom = 21
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Button/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 12
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Cost" type="Label" parent="Button/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer"]
 layout_mode = 2
-text = "1
-"
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Name" type="Label" parent="NinePatchRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "CardName"
+label_settings = SubResource("LabelSettings_agaot")
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Name" type="Label" parent="Button/MarginContainer/HBoxContainer"]
+[node name="Count" type="Label" parent="NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "BlankCard
-"
-horizontal_alignment = 2
+text = "3"
+label_settings = SubResource("LabelSettings_agaot")
+horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="NinePatchRect/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="NinePatchRect/MarginContainer/Button" to="." method="changeQuantity"]

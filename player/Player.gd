@@ -22,7 +22,7 @@ var last_direction : Vector2
 func _ready() -> void:
 	GLOBAL.player = self
 	prep_deck()
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("atack"):
 		throw()
 	if Input.is_action_just_pressed("ability"):

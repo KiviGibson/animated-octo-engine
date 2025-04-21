@@ -8,10 +8,10 @@ extends CharacterBody3D
 var clones: Array[Unit]
 
 @export_category("Stats")
-@export var vit: int = 10
-@export var str: int = 10
-@export var dex: int = 10
-@export var fai: int = 10
+@export var vitality: int = 10
+@export var strength: int = 10
+@export var dexterity: int = 10
+@export var faith: int = 10
 
 func add_effect(effect: Effect):
 	var current_state: Effect = get_effect(effect.id)
