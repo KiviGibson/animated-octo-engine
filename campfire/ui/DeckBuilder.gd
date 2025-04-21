@@ -17,56 +17,38 @@ func load_deck() -> void:
 	var data: Array[Dictionary] = [{
 		"card": "res://cards/cards/BlankCard.tscn",
 		"count": 10,
-		"in_use": 4,
+		"in_use": 0,
 		},
 		{
 		"card": "res://cards/cards/Wound.tscn",
 		"count": 3,
-		"in_use": 1,
-		},
-		{
-		"card": "res://cards/cards/Wound.tscn",
-		"count": 3,
-		"in_use": 1,
-		},
-		{
-		"card": "res://cards/cards/Wound.tscn",
-		"count": 3,
-		"in_use": 1,
-		},
-		{
-		"card": "res://cards/cards/Wound.tscn",
-		"count": 3,
-		"in_use": 1,
-		},
-		{
-		"card": "res://cards/cards/Wound.tscn",
-		"count": 3,
-		"in_use": 1,
-		},
-		{
-		"card": "res://cards/cards/Wound.tscn",
-		"count": 3,
-		"in_use": 1,
+		"in_use": 0,
 		},
 	]
 	for datum in data:
-		var card: Card = load(datum["card"]).instantiate()
+		var card: PackedScene = load(datum["card"])
 		add(card, datum["count"], datum["in_use"])
 
 func save() -> void:
+	var res: Array[CardData]
+	for child in deck_side.get_children():
+		if child is DeckComponent and child.count > 0:
+			var element: CardData
+			element.card = child.scene
+			element.count = child.count
+			res.append(element)
+	print(res)
 	# Card Storage code for storing current deck in files
-	pass
 	
-func add(card: Card, count: int, in_use: int)-> void:
+func add(scene: PackedScene, count: int, in_use: int)-> void:
 	var cardUI: DeckComponent = card_ui_wrapper.instantiate()
 	var deckUI: DeckComponent = deck_component_ui.instantiate()
 	card_side.add_child(cardUI)
 	deck_side.add_child(deckUI)
 	deckUI.builder = self
 	cardUI.builder = self
-	deckUI.card = card
-	cardUI.card = card
+	deckUI.scene = scene
+	cardUI.scene = scene
 	deckUI.count = in_use
 	cardUI.count = count - in_use
 	deckUI.connection = cardUI

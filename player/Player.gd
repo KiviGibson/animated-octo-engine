@@ -1,7 +1,7 @@
 class_name Player
 extends Unit
 
-@export var my_deck: Array[PackedScene]
+@export var my_deck: Array[CardData]
 @export var camera: Camera3D
 @export var container: Node3D
 @export var ui: PlayerUI
@@ -22,6 +22,7 @@ var last_direction : Vector2
 func _ready() -> void:
 	GLOBAL.player = self
 	prep_deck()
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("atack"):
 		throw()
@@ -54,9 +55,10 @@ func prep_deck() -> void:
 	hand.clear()
 	discard_pile.clear()
 	for item in my_deck:
-		var card: Card = item.instantiate()
-		draw_pile.append(card)
-		container.add_child(card)
+		for num in item.count:
+			var card: Card = item.card.instat
+			draw_pile.append(card)
+			container.add_child(card)
 	draw_pile.shuffle() 
 	draw(5)
 

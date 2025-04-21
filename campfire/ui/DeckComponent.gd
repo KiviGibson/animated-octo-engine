@@ -8,7 +8,7 @@ extends Node
 var count: int : set = counter
 @export var arr: Array[CanvasItem]
 @export var in_deck: bool
-var card: Card
+var scene: PackedScene
 var cardType: Card.type : set = setter
 var connection: DeckComponent
 var builder: DeckBuilder
@@ -34,6 +34,7 @@ func counter(value: int) -> void:
 		self.visible = true
 
 func setupGUI() -> void:
+	var card: Card = scene.instantiate()
 	if cardScene != null:
 		cardScene.cardType = card.card_type
 		cardScene.image.texture = card.texture
@@ -44,6 +45,7 @@ func setupGUI() -> void:
 		card_name.text = str(card.card_name)
 		cardType = card.card_type
 	card_count.text = str(count)
+	card.queue_free()
 
 func changeQuantity(c: int = -1) -> void:
 	if self.count == 0: return

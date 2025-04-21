@@ -14,4 +14,3 @@ shape = SubResource("CylinderShape3D_k5tea")
 
 [connection signal="body_entered" from="." to="." method="close"]
 [connection signal="body_exited" from="." to="." method="distant"]
-[connection signal="on_interaction" from="." to="." method="_on_interaction"]
