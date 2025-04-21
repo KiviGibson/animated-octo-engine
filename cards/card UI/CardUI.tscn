@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://22fy8x7g40v6"]
+
+[ext_resource type="Script" uid="uid://ds6etuahs2xmh" path="res://cards/card UI/UIScript.gd" id="1_yu3nm"]
+[ext_resource type="Texture2D" uid="uid://myvusbf3xj54" path="res://UITextures/Transparent border/panel-transparent-border-001.png" id="2_5a7l1"]
+[ext_resource type="Texture2D" uid="uid://bh3mm18bmyjdi" path="res://UITextures/Icons/fire.png" id="3_5a7l1"]
+[ext_resource type="Texture2D" uid="uid://bbegp36i4r7xk" path="res://UITextures/Border/panel-border-001.png" id="4_04wtj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_han4o"]
+font_size = 32
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_04wtj"]
+
+[node name="CardUi" type="Node2D" node_paths=PackedStringArray("title", "cost", "desc", "image", "arr")]
+script = ExtResource("1_yu3nm")
+title = NodePath("Back/MarginContainer/MarginContainer/VBoxContainer/CardName")
+cost = NodePath("Back/MarginContainer/ManaCost")
+desc = NodePath("Back/MarginContainer/MarginContainer/VBoxContainer/RichTextLabel")
+image = NodePath("Back/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/Image")
+arr = [NodePath("Back/NinePatchRect"), NodePath("Back/MarginContainer/ManaCost"), NodePath("Back/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/Image")]
+
+[node name="Back" type="NinePatchRect" parent="."]
+self_modulate = Color(0.12549, 0.12549, 0.12549, 1)
+offset_right = 170.0
+offset_bottom = 256.0
+texture = ExtResource("2_5a7l1")
+patch_margin_left = 21
+patch_margin_top = 21
+patch_margin_right = 21
+patch_margin_bottom = 21
+
+[node name="MarginContainer" type="MarginContainer" parent="Back"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ManaCost" type="Label" parent="Back/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "5"
+label_settings = SubResource("LabelSettings_han4o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Back/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Back/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Back/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Image" type="NinePatchRect" parent="Back/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 0.173144, 0.272079, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("3_5a7l1")
+
+[node name="CardName" type="Label" parent="Back/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "FireBall"
+label_settings = SubResource("LabelSettings_04wtj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Back/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[center]"
+scroll_active = false
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Back"]
+self_modulate = Color(0.713247, 0.663123, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_04wtj")
+patch_margin_left = 17
+patch_margin_top = 17
+patch_margin_right = 31
+patch_margin_bottom = 17
