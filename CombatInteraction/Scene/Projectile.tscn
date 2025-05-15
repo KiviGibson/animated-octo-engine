@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://coehherbyjgpn"]
+[gd_scene load_steps=6 format=3 uid="uid://coehherbyjgpn"]
 
-[ext_resource type="Script" uid="uid://d0syhrhrg2nwh" path="res://projectiles/BaseProjectile.gd" id="1_dxisy"]
+[ext_resource type="Script" uid="uid://d0syhrhrg2nwh" path="res://CombatInteraction/Projectile.gd" id="1_hhsx1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g17yy"]
 radius = 0.1
@@ -13,10 +13,13 @@ material = SubResource("StandardMaterial3D_e06ep")
 radius = 0.1
 height = 0.2
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_eeyek"]
+radius = 0.1
+
 [node name="Projectile" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 12
-script = ExtResource("1_dxisy")
+script = ExtResource("1_hhsx1")
 max_distance = 9.0
 speed = 15.0
 
@@ -25,3 +28,10 @@ shape = SubResource("SphereShape3D_g17yy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_0vhpt")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_eeyek")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_collision"]

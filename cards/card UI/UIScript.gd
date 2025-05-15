@@ -7,7 +7,7 @@ extends Node
 @export var desc: RichTextLabel 
 @export var image: NinePatchRect
 @export var arr: Array[CanvasItem]
-var cardType: Card.type :
+var card_type: Card.type :
 	set = setter
 
 func setter(type: Card.type) -> void:
@@ -21,4 +21,4 @@ func setter(type: Card.type) -> void:
 				el.self_modulate = Color("#81b6ff")
 			Card.type.mysterious:
 				el.self_modulate = Color("#b6a9ff")
-	cardType = type
+	card_type = type

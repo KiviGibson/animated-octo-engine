@@ -4,12 +4,13 @@ extends Node
 
 @export var card_name: Label
 @export var card_count: Label
-@export var cardScene: CardUI
+@export var card_scene: CardUI
 var count: int : set = counter
 @export var arr: Array[CanvasItem]
 @export var in_deck: bool
+var path: String
 var scene: PackedScene
-var cardType: Card.type : set = setter
+var card_type: Card.type : set = setter
 var connection: DeckComponent
 var builder: DeckBuilder
 func setter(type: Card.type) -> void:
@@ -23,7 +24,7 @@ func setter(type: Card.type) -> void:
 				el.self_modulate = Color("#81b6ff")
 			Card.type.mysterious:
 				el.self_modulate = Color("#b6a9ff")
-	cardType = type
+	card_type = type
 
 func counter(value: int) -> void:
 	card_count.text = str(value)
@@ -35,15 +36,15 @@ func counter(value: int) -> void:
 
 func setupGUI() -> void:
 	var card: Card = scene.instantiate()
-	if cardScene != null:
-		cardScene.cardType = card.card_type
-		cardScene.image.texture = card.texture
-		cardScene.cost.text =  str(card.cost)
-		cardScene.desc.text = "[center]" + card.desc
-		cardScene.title.text = card.card_name
+	if card_scene != null:
+		card_scene.card_type = card.card_type
+		card_scene.image.texture = card.texture
+		card_scene.cost.text =  str(card.cost)
+		card_scene.desc.text = "[center]" + card.desc
+		card_scene.title.text = card.card_name
 	else:
 		card_name.text = str(card.card_name)
-		cardType = card.card_type
+		card_type = card.card_type
 	card_count.text = str(count)
 	card.queue_free()
 

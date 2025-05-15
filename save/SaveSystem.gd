@@ -3,7 +3,6 @@ class_name SaveSystem
 extends Node
 var db: SQLite
 
-@export var save_id: int
 @export_category("player data")
 @export var try_set_cards: bool = false
 func _ready() -> void:
@@ -16,10 +15,10 @@ func _ready() -> void:
 	db = SQLite.new()
 	db.path = "user://data/save.db"
 	db.open_db()
-	
+
 func _exit_tree() -> void:
 	db.close_db()
-	
+
 func load_state(save_id: int) -> Dictionary:
 	db.query_with_bindings("""
 	SELECT x, y, z FROM save WHERE id = ?;""",
@@ -42,13 +41,48 @@ func load_state(save_id: int) -> Dictionary:
 		draw.append(CardData.new(dict["path"], dict["draw_pile"]))
 	return {"position": position, "draw_pile": draw, "hand": hand, "discard_pile": discard}
 	
-
+func get_deck(save_id: int) -> Array[Dictionary]:
+	db.query_with_bindings("""
+	SELECT path, count, (hand + draw_pile + discard_pile) as in_deck
+	FROM save_cards INNER JOIN card ON card_id = id
+	WHERE save_id = ?;""",
+	[save_id])
+	var cards: Array[Dictionary]
+	for dict in db.query_result:
+		cards.append({
+			"path": dict["path"],
+			"available": dict["count"],
+			"in_deck": dict["in_deck"]
+		})
+	return cards
+func save_deck(draw: Array[CardData], hand: Array[CardData] = [], discard: Array[CardData] = [], save_id = 1) -> void:
+	for card in draw:
+		db.query_with_bindings("""
+		UPDATE save_cards 
+		SET draw_pile = ?, hand = 0, discard_pile = 0
+		WHERE save_id = ? AND card_id IN (
+		SELECT id FROM card WHERE path = ?); """,
+		[card.count, save_id, card.path])
+	for card in hand:
+		db.query_with_bindings("""
+		UPDATE save_cards 
+		SET hand = ? 
+		WHERE save_id = ? AND card_id IN (
+		SELECT id FROM card WHERE path = ?); """,
+		[card.count, save_id, card.path])
+	for card in discard:
+		db.query_with_bindings("""
+		UPDATE save_cards 
+		SET discard_pile = ? 
+		WHERE save_id = ? AND card_id IN (
+		SELECT id FROM card WHERE path = ?); """,
+		[card.count, save_id, card.path])
+	
 func save_state() -> void:
 	pass
 
 
-
-func obsolete() -> void:
+func new_game() -> void:
 	db.query("SELECT name FROM sqlite_master WHERE name != \"sqlite_sequence\"")
 	if not db.query_result.is_empty():
 		db.drop_table("save")

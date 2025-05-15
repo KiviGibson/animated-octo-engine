@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ql75yufhqrgs" path="res://campfire/ui/DeckComponent.gd" id="1_ftrsj"]
 [ext_resource type="PackedScene" uid="uid://22fy8x7g40v6" path="res://cards/card UI/CardUI.tscn" id="2_274bp"]
 
-[node name="CardUiWrapper" type="Control" node_paths=PackedStringArray("card_count", "cardScene")]
+[node name="CardUiWrapper" type="Control" node_paths=PackedStringArray("card_count", "card_scene")]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 3
 anchors_preset = 0
@@ -11,7 +11,7 @@ offset_right = 200.0
 offset_bottom = 300.0
 script = ExtResource("1_ftrsj")
 card_count = NodePath("MarginContainer/VBoxContainer/CardLeft")
-cardScene = NodePath("MarginContainer/VBoxContainer/CardUi")
+card_scene = NodePath("MarginContainer/VBoxContainer/CardUi")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

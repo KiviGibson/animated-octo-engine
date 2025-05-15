@@ -9,7 +9,7 @@ func setup_card(card: Card, ct: CardUI) -> void:
 	ct.title.text = card.card_name
 	ct.cost.text = str(card.cost)
 	ct.image.texture = card.texture
-	ct.cardType = card.card_type
+	ct.card_type = card.card_type
 	ct.desc.text = "[center]" + str(card.desc)
 	ct.visible = true
 	card.ui = ct.get_parent()

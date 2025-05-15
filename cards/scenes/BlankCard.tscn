@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmnhevj8x2shc"]
+
+[ext_resource type="Script" uid="uid://coqbkbqvoadym" path="res://cards/Card.gd" id="1_577q3"]
+[ext_resource type="Texture2D" uid="uid://dq00yxqrl7v32" path="res://UITextures/Icons/cards_stack_cross.png" id="2_njn4r"]
+
+[node name="BlankCard" type="Node"]
+script = ExtResource("1_577q3")
+card_name = "BlankCard"
+desc = "Empty Card"
+texture = ExtResource("2_njn4r")

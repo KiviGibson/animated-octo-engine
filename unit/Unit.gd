@@ -30,7 +30,8 @@ func get_effect(id: String) -> Effect:
 			return effect
 	return null
 	
-func atack(projectile: BaseProjectile = attack_perfab.instantiate()):
+func atack(projectile: Projectile = attack_perfab.instantiate()):
+	projectile.caster = self
 	get_tree().root.get_child(0).add_child(projectile)
 	projectile.global_position = self.global_position
 	projectile.rotation = self.rotation
