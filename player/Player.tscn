@@ -1,12 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://hu8h8vgu33c8"]
+[gd_scene load_steps=7 format=3 uid="uid://hu8h8vgu33c8"]
 
 [ext_resource type="Script" uid="uid://dci22w53v0q7s" path="res://player/Player.gd" id="1_jqugk"]
-[ext_resource type="PackedScene" uid="uid://dmnhevj8x2shc" path="res://cards/blank card/BlankCard.tscn" id="2_spmx8"]
-[ext_resource type="PackedScene" uid="uid://c500ujhf802a" path="res://cards/darkness cards/TasteMyDarkness.tscn" id="2_ton2t"]
-[ext_resource type="PackedScene" uid="uid://doldv4uvkl672" path="res://cards/darkness cards/DarknessWithinMe.tscn" id="5_82unb"]
-[ext_resource type="PackedScene" uid="uid://25qpam166f0r" path="res://cards/throw cards/Wound.tscn" id="5_mhpjh"]
+[ext_resource type="PackedScene" uid="uid://coehherbyjgpn" path="res://CombatInteraction/Scene/Projectile.tscn" id="4_gskgj"]
 [ext_resource type="Script" uid="uid://dvyytffq2bevy" path="res://unit/Health.gd" id="6_dpskx"]
-[ext_resource type="PackedScene" uid="uid://btm1gbul0ptnt" path="res://player/UI/PlayerStatsUI.tscn" id="7_uajub"]
 [ext_resource type="PackedScene" uid="uid://cr8tw7o5s8gns" path="res://player/UI/HandUI.tscn" id="8_pvg5q"]
 [ext_resource type="PackedScene" uid="uid://c7gw76416i8ra" path="res://player/skeleton_mage.tscn" id="10_ndjxb"]
 
@@ -14,11 +10,11 @@
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("container", "ui", "effect_node", "health")]
 script = ExtResource("1_jqugk")
-my_deck = Array[PackedScene]([ExtResource("2_ton2t"), ExtResource("2_spmx8"), ExtResource("2_spmx8"), ExtResource("5_82unb"), ExtResource("5_mhpjh"), ExtResource("2_spmx8")])
 container = NodePath("CardContainer")
 ui = NodePath("PlayerUI/Hand/HandUI")
 effect_node = NodePath("Effects")
 health = NodePath("Health")
+attack_perfab = ExtResource("4_gskgj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_pioxw")
@@ -33,17 +29,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerStatsUi" parent="PlayerUI" instance=ExtResource("7_uajub")]
-layout_mode = 1
-
 [node name="Hand" type="Control" parent="PlayerUI"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = 12.0
+offset_right = 12.0
 grow_vertical = 0
 
 [node name="HandUI" parent="PlayerUI/Hand" instance=ExtResource("8_pvg5q")]

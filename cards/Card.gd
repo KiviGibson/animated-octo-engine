@@ -2,39 +2,33 @@ class_name Card
 
 extends Node
 
-signal throwed()
-signal use_signal(position: Vector3, units:Array[Unit])
-signal throw_signal(position: Vector3, rotation:Vector3, projectile:Node3D)
-
-enum type{basic ,mysterious, eldrich, monsterous, ezotheric}
-
+enum type{mysterious, eldrich, monsterous, ezotheric}
 @export_category("Basic Info")
 @export var card_name: String = ""
 @export var card_type: type
-@export var cost: int
+@export var cost: int = 0
 @export var desc: String = ""
-@export var damage: int
-
-@export_category("UI stuff")
+@export var damage: int = 1
 @export var texture: Texture
-var projectile: PackedScene = load("res://projectiles/Projectile.tscn")
-var ui_component: CardUI
 
-@export_category("Conditions")
-@export var throw_condition: Condition
-@export var use_condition: Condition
+@export_subgroup("Ability Connector")
+@export var draw_ability: Ability
+@export var ability: Ability
+@export var discard_ability: Ability
+@export_subgroup("Ability Condition")
+@export var condition: Condition
 
-@export_category("Ability")
+var ui: PathFollow2D
 
-func throw(position: Vector3 = Vector3.ZERO, rotation: Vector3 = Vector3.ZERO, proj:BaseProjectile = projectile.instantiate()) -> bool:
-	if !throw_condition or throw_condition.condition_met():
-		proj.damage = damage
-		throw_signal.emit(position, rotation, proj)
-		if len(throw_signal.get_connections()) > 0:
-			throwed.emit()
-			return true
-	proj.free()
+func use(position: Vector3, caster: Unit) -> bool:
+	if (!condition or condition.condition_met(caster)) and ability:
+		ability.execute(position, caster)
+		return true
 	return false
 
-func use(position:Vector3) -> bool:
-	return false
+func draw(position: Vector3, caster: Unit) -> void:
+	if draw_ability:
+		draw_ability.execute(position, caster)
+func discard(position: Vector3, caster: Unit) -> void:
+	if discard_ability:
+		discard_ability.execute(position, caster)
