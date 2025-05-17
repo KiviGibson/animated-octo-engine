@@ -1,0 +1,1 @@
+res://cards/blank card/CARD.png,res://cards/blank card/BlankCard.tscn,BlankCard,3

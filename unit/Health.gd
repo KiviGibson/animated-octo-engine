@@ -10,12 +10,12 @@ var health: int
 func _ready() -> void:
 	health = max_health
 	
-func change_health(diff: int) -> void:
-	if diff <=0:
+func change_health(value: int) -> void:
+	if value <=0:
 		damaged.emit()
-		health += diff
+		health += value
 		if health <= 0:
 			death.emit()
 	else:
 		healed.emit()
-		health+= diff
+		health+= value

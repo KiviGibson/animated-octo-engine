@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://22fy8x7g40v6"]
+
+[ext_resource type="Script" uid="uid://ds6etuahs2xmh" path="res://cards/CardUI/CardIMGS/UIScript.gd" id="1_yu3nm"]
+[ext_resource type="Texture2D" uid="uid://bvies4jkncv1w" path="res://cards/CardUI/CardIMGS/cardback.png" id="2_7xen5"]
+[ext_resource type="Texture2D" uid="uid://mw8qpafkb53n" path="res://cards/CardUI/CardIMGS/mana.png" id="3_1in41"]
+[ext_resource type="Texture2D" uid="uid://c67rcvqwhsia2" path="res://cards/CardUI/CardIMGS/gojo.png" id="3_qywge"]
+[ext_resource type="Texture2D" uid="uid://bdoy0i4yisx0h" path="res://cards/CardUI/CardIMGS/text.png" id="4_xty3j"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wucru"]
+diffuse_texture = ExtResource("2_7xen5")
+
+[sub_resource type="LabelSettings" id="LabelSettings_o0xky"]
+font_size = 30
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gcoif"]
+line_spacing = 1.0
+font_size = 21
+outline_size = 2
+shadow_size = 2
+
+[node name="CardUi" type="Node2D" node_paths=PackedStringArray("title", "cost", "desc", "image")]
+script = ExtResource("1_yu3nm")
+title = NodePath("TextArea/VBoxContainer/CardName")
+cost = NodePath("ManaUI/ManaCost")
+desc = NodePath("TextArea/VBoxContainer/MarginContainer/RichTextLabel")
+image = NodePath("Image")
+
+[node name="CardUI" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("CanvasTexture_wucru")
+
+[node name="Image" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qywge")
+
+[node name="ManaUI" type="Sprite2D" parent="."]
+position = Vector2(-62.25, -101.25)
+scale = Vector2(0.521429, 0.521429)
+texture = ExtResource("3_1in41")
+
+[node name="ManaCost" type="Label" parent="ManaUI"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -35.0
+offset_right = -35.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "5"
+label_settings = SubResource("LabelSettings_o0xky")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextArea" type="Sprite2D" parent="."]
+position = Vector2(0, 63)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_xty3j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextArea"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -120.0
+offset_right = -160.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardName" type="Label" parent="TextArea/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Gojo Satoru"
+label_settings = SubResource("LabelSettings_gcoif")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TextArea/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextArea/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center] Uses Cursed energy to fight enemy like courses and shit... Pretty chill dude until tested... Closed in some kind of box. People love him for his looks and vibe."
+scroll_active = false
