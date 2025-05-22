@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmo0qe4pmjp7d"]
+[gd_scene load_steps=7 format=3 uid="uid://bmo0qe4pmjp7d"]
 
 [ext_resource type="PackedScene" uid="uid://dyuiuaucsa4q7" path="res://camera/MyCamera.tscn" id="1_xkosq"]
 [ext_resource type="PackedScene" uid="uid://hu8h8vgu33c8" path="res://player/Player.tscn" id="2_8qujy"]
 [ext_resource type="PackedScene" uid="uid://ects3kvbidi5" path="res://campfire/Campfire.tscn" id="3_d5wmo"]
+[ext_resource type="PackedScene" uid="uid://ns6ti4tvfryl" path="res://enemies/Dummy.tscn" id="4_5en45"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ujpkk"]
 
@@ -27,6 +28,7 @@ shape = SubResource("WorldBoundaryShape3D_ujpkk")
 mesh = SubResource("PlaneMesh_fwdq1")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_8qujy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 camera = NodePath("../MyCamera")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -34,3 +36,6 @@ transform = Transform3D(0.223159, -0.902719, 0.367829, 0.212838, 0.413363, 0.885
 
 [node name="Campfire" parent="." instance=ExtResource("3_d5wmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.105922, 6.96826)
+
+[node name="Dummy" parent="." instance=ExtResource("4_5en45")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0390247, 0.05, -9.07106)

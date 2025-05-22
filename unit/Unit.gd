@@ -4,7 +4,14 @@ extends CharacterBody3D
 @export var effect_node: Node3D
 @export var speed: int = 5
 @export var health: Health
+@export var attack_perfab: PackedScene
 var clones: Array[Unit]
+
+@export_category("Stats")
+@export var vitality: int = 10
+@export var strength: int = 10
+@export var dexterity: int = 10
+@export var faith: int = 10
 
 func add_effect(effect: Effect):
 	var current_state: Effect = get_effect(effect.id)
@@ -23,5 +30,9 @@ func get_effect(id: String) -> Effect:
 			return effect
 	return null
 	
-func throw(position: Vector3 = self.global_position, rotation: Vector3 = self.rotation, projectile: Node3D = null):
-	pass
+func atack(projectile: Projectile = attack_perfab.instantiate()):
+	projectile.caster = self
+	get_tree().root.get_child(0).add_child(projectile)
+	projectile.global_position = self.global_position
+	projectile.rotation = self.rotation
+	projectile.damage = 3

@@ -1,30 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://ects3kvbidi5"]
+[gd_scene load_steps=6 format=3 uid="uid://ects3kvbidi5"]
 
 [ext_resource type="Script" uid="uid://de7dc1gl7foeb" path="res://campfire/Campfire.gd" id="1_bl1g3"]
+[ext_resource type="PackedScene" uid="uid://b702uyx2vybcv" path="res://campfire/ui/CookingBench.tscn" id="2_s1ild"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k5tea"]
 height = 1.0
 radius = 1.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ski2d"]
-transparency = 1
-albedo_color = Color(0.867502, 0.599565, 0.270187, 0.552941)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1ild"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_shc0a"]
-material = SubResource("StandardMaterial3D_ski2d")
-top_radius = 1.5
-bottom_radius = 1.5
-height = 1.0
+[sub_resource type="CylinderMesh" id="CylinderMesh_tllbn"]
+material = SubResource("StandardMaterial3D_s1ild")
 
 [node name="Campfire" type="Area3D"]
 script = ExtResource("1_bl1g3")
+card_menu = ExtResource("2_s1ild")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_k5tea")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CylinderMesh_shc0a")
+mesh = SubResource("CylinderMesh_tllbn")
 
 [connection signal="body_entered" from="." to="." method="close"]
+[connection signal="body_exited" from="." to="." method="_close_if_not_close"]
 [connection signal="body_exited" from="." to="." method="distant"]
 [connection signal="on_interaction" from="." to="." method="_on_interaction"]
