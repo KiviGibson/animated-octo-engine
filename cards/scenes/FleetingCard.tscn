@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://7aw00e4ooqma"]
+
+[ext_resource type="Script" uid="uid://coqbkbqvoadym" path="res://cards/Card.gd" id="1_p0ovy"]
+[ext_resource type="Texture2D" uid="uid://x66gcqf5b630" path="res://UITextures/Icons/arrow_reserve.png" id="2_5kv1y"]
+[ext_resource type="Script" uid="uid://dmu42qfkxmaqx" path="res://cards/card component/ability/Fleeting.gd" id="3_raw0l"]
+
+[node name="FleetingCard" type="Node" node_paths=PackedStringArray("discard_ability")]
+script = ExtResource("1_p0ovy")
+card_name = "FleetingCard"
+desc = "This card is removed after use"
+texture = ExtResource("2_5kv1y")
+discard_ability = NodePath("Fleeting")
+
+[node name="Fleeting" type="Node" parent="."]
+script = ExtResource("3_raw0l")
+metadata/_custom_type_script = "uid://dmu42qfkxmaqx"
